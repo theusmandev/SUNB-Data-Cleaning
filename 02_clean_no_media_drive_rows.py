@@ -8,19 +8,25 @@ def clean_invalid_links():
     print("Cleaning process start ho raha hai...\n")
     
     try:
-        # 1. CSV file ko read karna
-        df = pd.read_csv(input_file)
+        # 1. CSV file ko read karna (Encoding error ko handle karte hue)
+        try:
+            df = pd.read_csv(input_file)
+        except UnicodeDecodeError:
+            print("Warning: UTF-8 encoding fail ho gayi. Alternative encoding (cp1252/latin1) try kar raha hun...")
+            try:
+                df = pd.read_csv(input_file, encoding='cp1252')
+            except UnicodeDecodeError:
+                df = pd.read_csv(input_file, encoding='latin1')
+
         print(f"Original file mein total rows: {len(df)}")
         
-        # 2. Columns ko identify karna (Kyunki ab sirf 3 columns hain)
-        # Index 0: Title, Index 1: Google Drive, Index 2: Mediafire
+        # 2. Columns ko identify karna
         cols = df.columns
         title_col = cols[0]
         gdrive_col = cols[1]
         mediafire_col = cols[2]
         
         # 3. "No Google Drive Link" aur "No Mediafire Link" ko empty (NaN) bananana
-        # '(?i)' ka matlab hai case-insensitive (chota bada letter sab match karega)
         df[gdrive_col] = df[gdrive_col].replace(r'(?i).*No Google Drive Link.*', np.nan, regex=True)
         df[mediafire_col] = df[mediafire_col].replace(r'(?i).*No Mediafire Link.*', np.nan, regex=True)
         
@@ -29,7 +35,6 @@ def clean_invalid_links():
         df[mediafire_col] = df[mediafire_col].replace(r'^\s*$', np.nan, regex=True)
         
         # 4. Un rows ko delete karna jahan DONO columns (GDrive aur Mediafire) khali (NaN) hon
-        # 'how="all"' ka matlab hai ke jab dono link khali honge tabhi row delete hogi
         df_cleaned = df.dropna(subset=[gdrive_col, mediafire_col], how='all')
         
         # 5. Result ko nayi CSV file mein save karna
@@ -41,7 +46,7 @@ def clean_invalid_links():
         print(f"Data '{output_file}' ke naam se save ho gaya hai.")
         
     except FileNotFoundError:
-        print(f"Error: '{input_file}' nahi mili. Kripya check karein ki script aur CSV file ek hi folder mein hain.")
+        print(f"Error: '{input_file}' nahi mili. Kripya check karein ki path theek hai.")
     except Exception as e:
         print(f"Error aagaya: {e}")
 
