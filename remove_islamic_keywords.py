@@ -13,15 +13,15 @@ def step_5_remove_islamic_books():
     
     # Aapki di gayi keywords ki mukammal list
     islamic_keywords = [
-        "allah", "muhammad", "islam", "islami", "islamic", "muslim", "deen", "imaan", "akhirat", "aakhirat", "jannat", "jahannam",
+        "allah", "islam", "islami", "islamic", "muslim", "deen", "imaan", "akhirat", "aakhirat",  "jahannam",
         "quran", "qur'an", "quraan", "surah", "ayat", "aayat", "tafseer", "tafsir", "tafhim", "tafheem", "uloom-ul-quran", "asbab-e-nuzool",
         "hadith", "hadees", "ahadith", "sahih", "sahi", "tirmidhi", "tirmizi", "abu dawood", "abu dawud", "nasai",
         "ibn majah", "sunan", "fiqh", "shariat", "shariah", "masail", "namaz", "salah", "salat", "roza", "sawm", "zakat",
         "hajj", "umrah", "tasbeeh", "dua", "wazifa", "zikr", "zikir", "hazrat", "hadrat", "imam", "aalim", "alim", "maulana",
-        "molana", "mufti", "sheikh", "shaykh", "qari", "hafiz", "sahabi", "tabi", "auliya", "seerat", "seerah", "sirat",
+        "molana", "mufti",  "shaykh", "qari", "hafiz", "sahabi", "tabi", "auliya", "seerat", "seerah", "sirat",
         "khulafa", "R.A", "PBUH", "rashideen", "sahaba", "ahle-bait", "islamic history", "tareekh-e-islam", "islam ka", "deen e islam",
         "islami taleem", "islami zindagi", "islami soch", "paighambar", "rasool", "nabi", "masjid", "madarsa", "madrasa",
-        "fatwa", "Mohammad", "halal", "haram", "nikah", "talaq"
+        "fatwa", "halal","nikah", "talaq"
     ]
     
     try:
